@@ -119,7 +119,7 @@ canvasWidth = 1200
 canvasHeight = 250
 
 
-def editSentence(event):
+def editSentence(event = ''):
     sent_fix = EditSentence(canvas)
 
 
@@ -137,7 +137,7 @@ def writeAlignments(event = ''):
         sql_string = "UPDATE ALIGNMENTS SET alignments_u{} = '{}' WHERE id = {}".format(str(user), str(connections_txt), str(current_pair_id))
         c.execute(sql_string)
         conn.commit()
-        messagebox.showinfo("Saved", "Word alignments saved")
+        #messagebox.showinfo("Saved", "Word alignments saved")
     except Exception as e:
         print('(Write alignments error)')
         print(e)
@@ -145,7 +145,7 @@ def writeAlignments(event = ''):
 
 
 
-def toggleDone(event):
+def toggleDone(event = ''):
     global user
     global current_pair_id
     try:
@@ -168,7 +168,7 @@ def toggleDone(event):
         sys.exit(1)
 
 
-def toggleDiscardAlignment(event):
+def toggleDiscardAlignment(event = ''):
     global user
     global current_pair_id
     try:
@@ -188,7 +188,7 @@ def toggleDiscardAlignment(event):
         sys.exit(1)
 
 
-def toggleUndiscardAlignment(event):
+def toggleUndiscardAlignment(event = ''):
     global user
     global current_pair_id
     try:
@@ -216,7 +216,7 @@ def finishPair(event = ''):
         sql_string = "UPDATE ALIGNMENTS SET done{} = 1 WHERE id = {}".format(str(user), str(current_pair_id))
         c.execute(sql_string)
         conn.commit()
-        messagebox.showinfo("Next pair", "Moving on to next pair.")
+        #messagebox.showinfo("Next pair", "Moving on to next pair.")
         canvas.delete("all")
         writeConfidence(current_pair_id)
         alignmentID, src_sent_txt, trg_sent_txt, conns_txt = select_alignment(current_pair_id)
