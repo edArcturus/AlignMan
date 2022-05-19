@@ -103,7 +103,7 @@ class WordBox:
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--db-name', help="DB name", default='alignments.db')
-parser.add_argument('--user', '-u', default=1, choices=['1', '2'])
+parser.add_argument('user', default=1, choices=['1', '2'], help='Annotating user.')
 args = parser.parse_args()
 
 try:
@@ -114,6 +114,7 @@ except:
     sys.exit(0)
 
 user = args.user
+print(f'You are now annotating as user {user}.')
 
 canvasWidth = 1200
 canvasHeight = 250
