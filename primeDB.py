@@ -21,8 +21,8 @@ else:
 
 
 with open(args.input_file, newline='') as alignments:
-    read_alignments = csv.reader(alignments, delimiter='\t')
-    for alignment in read_alignments:
+    for alignment in alignments:
+        alignment = alignment.split('\t')
         src_alignment = alignment[0].strip().rstrip()
         trg_alignment = alignment[1].strip().rstrip()
         if args.tokenize:
