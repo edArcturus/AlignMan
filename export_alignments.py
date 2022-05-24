@@ -11,7 +11,7 @@ parser.add_argument('--alignments', '-a', help="Output alignments", action='stor
 parser.add_argument('--alignment-number', '-an', default='0', help="Output alignments by id-s [example: 1 or 1-3 or 1-3,7-9]. Default is all sentences.")
 parser.add_argument('--alignment-format', '-af', default='classic', choices=['classic', 'pharaoh'])
 parser.add_argument('--include-source', '-source', help="Include source?", action='store_true')
-parser.add_argument('--select-alignments', '-select', help="Select which alignments", default='combined', choices=['user1', 'user2', 'combined'])
+parser.add_argument('--select-alignments', '-select', help="Select which alignments", default='user1', choices=['user1', 'user2', 'combined'])
 parser.add_argument('--db-name', help="DB name", default='alignments.db')
 args = parser.parse_args()
 
