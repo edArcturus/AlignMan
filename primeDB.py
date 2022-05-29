@@ -34,5 +34,5 @@ with open(args.input_file, newline='') as alignments:
         print(alignment[0], alignment[1])
         c.execute("select count() from alignments where src_sentence = '{}' and trg_sentence = '{}' and source_filename = '{}'".format(src_alignment, trg_alignment, args.input_file))
         if c.fetchone()[0] == 0:
-            c.execute("INSERT INTO ALIGNMENTS (trg_sentence, src_sentence, source_filename, done1, done2) VALUES ('{}', '{}', '{}', {}, {})".format(src_alignment, trg_alignment, args.input_file, 0, 0))
+            c.execute("INSERT INTO ALIGNMENTS (src_sentence, trg_sentence, source_filename, done1, done2) VALUES ('{}', '{}', '{}', {}, {})".format(src_alignment, trg_alignment, args.input_file, 0, 0))
     conn.commit()
