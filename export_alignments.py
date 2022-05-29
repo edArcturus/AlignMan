@@ -88,7 +88,7 @@ def return_alignments(ids, format, source):
             print(sorted(lina[1].strip().split()))
             alignments_ordered = ' '.join(sorted(lina[1].strip().split()))
             if format=='pharaoh':
-                alignments_out += str(lina[0]) + '\t' + alignments_ordered + '\n'
+                alignments_out += str(lina[0]-1) + '\t' + alignments_ordered + '\n'
             elif format=='classic':
                 word_alignments = alignments_ordered.split()
                 for word_alignment in word_alignments:
