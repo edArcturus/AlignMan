@@ -1,3 +1,9 @@
+# data
+.DS_Store
+alignments.db
+alignments_alignments_classic.txt
+data/*
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

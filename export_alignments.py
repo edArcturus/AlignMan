@@ -11,7 +11,7 @@ parser.add_argument('--alignments', '-a', help="Output alignments", action='stor
 parser.add_argument('--alignment-number', '-an', default='0', help="Output alignments by id-s [example: 1 or 1-3 or 1-3,7-9]. Default is all sentences.")
 parser.add_argument('--alignment-format', '-af', default='classic', choices=['classic', 'pharaoh'])
 parser.add_argument('--include-source', '-source', help="Include source?", action='store_true')
-parser.add_argument('--select-alignments', '-select', help="Select which alignments", default='combined', choices=['user1', 'user2', 'combined'])
+parser.add_argument('--select-alignments', '-select', help="Select which alignments", default='user1', choices=['user1', 'user2', 'combined'])
 parser.add_argument('--db-name', help="DB name", default='alignments.db')
 args = parser.parse_args()
 
@@ -59,17 +59,19 @@ def return_sentences(ids, format, source):
     src_text_out = ''
     trg_text_out = ''
     info_out = ''
+    i = 0
     for lina in c.fetchall():
         if lina[0] in ids:
             if format == 'text':
-                src_text_out += str(lina[0]) + '\t' + lina[1] + '\n'
-                trg_text_out += str(lina[0]) + '\t' + lina[2] + '\n'
+                src_text_out += str(i) + '\t' + lina[1] + '\n' # use real sentence number instead of id
+                trg_text_out += str(i) + '\t' + lina[2] + '\n'
             elif format == 'markup':
                 src_text_out += '<s snum=' + str(lina[0]) + '>' + lina[1] + '</s>\n'
                 trg_text_out += '<s snum=' + str(lina[0]) + '>' + lina[2] + '</s>\n'
             elif format == 'fa':
                 src_text_out += lina[1] + ' ||| ' + lina[2] + '\n'
         if source: info_out += lina[3] + '\n'
+        i+=1
     return src_text_out, trg_text_out, info_out
 
 
@@ -83,12 +85,13 @@ def return_alignments(ids, format, source):
     c.execute(sql_string)
     alignments_out = ''
     info_out = ''
+    i = 0
     for lina in c.fetchall():
         if lina[0] in ids:
             print(sorted(lina[1].strip().split()))
             alignments_ordered = ' '.join(sorted(lina[1].strip().split()))
             if format=='pharaoh':
-                alignments_out += str(lina[0]) + '\t' + alignments_ordered + '\n'
+                alignments_out += str(i) + '\t' + alignments_ordered + '\n'
             elif format=='classic':
                 word_alignments = alignments_ordered.split()
                 for word_alignment in word_alignments:
@@ -97,6 +100,7 @@ def return_alignments(ids, format, source):
                         current[1] = current[1].replace(':', ' ')
                     alignments_out += str(lina[0]) + ' ' + str(current[0]) + ' ' + str(current[1]) + '\n'
         if source: info_out += lina[2] + '\n'
+        i+=1
     return alignments_out, info_out
 
 
